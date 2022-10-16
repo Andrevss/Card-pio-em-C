@@ -1,0 +1,160 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+#define TAMANHO 200
+#define CARDAPIO 1
+#define PEDIDO 2
+#define PESQUISA 3
+#define ATUALIZA 4
+#define APAGA 5
+#define FIM 6
+
+struct cadastro{
+int id;
+char pizza [80];
+char guarana [80];
+char nome [80];
+char CPF [14];
+}vet[TAMANHO];
+
+int espaco=0;
+
+int main(void) {
+  int op=0;
+
+  printf("Bem vindo a Pizzaria SCFC\n");
+  
+  do{
+    printf("\n--- MENU DE OPÇÕES ---");
+    printf("\n 1 - Cardápio");
+    printf("\n 2 - Fazer pedido");
+    printf("\n 3 - Pesquisar pedido");
+    printf("\n 4 - Atualizar pedido");
+    printf("\n 5 - Cancelar pedido");
+    printf("\n 6 - Finalizar\n");
+    scanf("%i", &op);
+
+    switch(op){
+      case CARDAPIO:
+        cardapio();
+        break;
+       case PEDIDO:
+        pedido();
+        break;
+      case PESQUISA:
+        pesquisa();
+        break;
+      case ATUALIZA:
+        atualizar();
+        break;
+      case APAGA:
+        apagar();
+        break;
+      case FIM:
+        printf("\nVolte sempre!");
+      default:
+        printf("\nOpção inválida");
+        break;
+    }
+  } while(op!=FIM);
+}
+
+int cardapio(void){
+
+  printf("\n--- CARDÁPIO ---\n");
+  printf("\nPizzas");
+  printf("\nMussarela.....................R$ 24,00\nCalabresa.....................R$ 24,00\nFrango........................R$ 26,00\nFrango com Catupiry...........R$ 30,00\n");
+  printf("\nBebidas");
+  printf("\nCoca-Cola 1L..................R$ 8,00\nGuaraná Antartica 1L..........R$ 7,00\nPepsi 1L......................R$ 7,00\n");
+
+return 0;
+}
+
+int pedido(void){
+  int i=0, op=0;
+  do{
+  printf("Digite o seu pedido:");
+  printf("\nDigite o sabor: ");
+  scanf("%s", vet[espaco].pizza);
+  printf("\nDigite o guaraná: ");
+  scanf("%s", vet[espaco].guarana);
+  printf("\nAgora, digite seu nome e CPF:");
+  printf("\nDigite o nome: ");
+  scanf("%s", vet[espaco].nome);
+  printf("\nDigite o CPF: ");
+  scanf("%s", vet[espaco].CPF);
+  vet[espaco].id=espaco;
+  espaco++;
+  printf("\nID do pedido: [%i]\nSeu pedido já está em andamento e o pagamento será feito na entrega.\n", i);
+  printf("Digite 1 para fazer outro pedido ou 0 para ir ao menu: ");
+  scanf("%i", &op);
+i++;
+}while(op!=0);
+
+  printf("\nObrigado pela sua compra. Volte Sempre!\n");
+  
+return 0;
+}
+
+int pesquisa(void){
+  int op=0;
+  
+  int i=0; 
+  char cpfPesquisa[200]; 
+  char nomePesquisa[200];
+
+  do{
+  printf("\nDigite 1 para consultar através do CPF ou 2 para consultar através do nome: ");
+  scanf("%d", &op); 
+      
+    switch(op){
+      case 1:
+      printf("\nDigite o CPF: ");
+      scanf("%s", cpfPesquisa);
+        for(i=0; i<espaco;i++){
+           if(strcmp(vet[i].CPF, cpfPesquisa)==0){
+           printf("\n--- PEDIDO ---");
+           printf("\nNome: %s\nPizza: %s\nGuaraná: %s", vet[i].nome, vet[i].pizza, vet[i].guarana);
+           }else{
+             printf("\nCPF inválido\n");
+           }
+        }
+      break;
+      case 2:
+      printf("\nDigite o nome: ");
+      scanf("%s", nomePesquisa);
+        for(i=0;i<espaco;i++){
+          if(strcmp(vet[i].nome, nomePesquisa)==0){
+          printf("\n--- PEDIDO ---");
+          printf("\nNome: %s\nPizza: %s\nGuaraná: %s", vet[i].nome, vet[i].pizza, vet[i].guarana);
+          }else{
+             printf("\nNome inválido\n");
+          }  
+        }
+      break;
+      default: 
+      printf("\nOpção Inválida");
+      break;
+    }
+    printf("\nDigite 1 para pesquisar mais pedidos ou 0 para ir ao menu: ");
+    scanf("%i", &op);
+  
+  }while(op==1);
+  return 0;
+  }
+
+int atualizar(void){
+  int idAlterar=0;
+
+  printf("Digite o ID do pedido que você deseja alterar: ");
+  scanf("%i", &idAlterar);
+      
+  printf("\nDigite novamente o seu pedido:");
+  printf("\nDigite o sabor: ");
+  scanf("%s", vet[idAlterar].pizza);
+  printf("\nDigite o guaraná: ");
+  scanf("%s", vet[idAlterar].guarana);
+    
+    vet[idAlterar].id=idAlterar;
+return 0;
+}
